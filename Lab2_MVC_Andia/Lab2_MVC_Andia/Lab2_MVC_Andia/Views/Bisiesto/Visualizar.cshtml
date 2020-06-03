@@ -1,0 +1,69 @@
+﻿@model Lab2_MVC_Andia.Models.Cls_Bisiesto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bisiesto</title>
+</head>
+<body>
+    <div>
+        <h1>Años Bisiestos y No Bisiestos</h1>
+        <br /><br />
+        @{
+            Model.bisiesto = "";
+            Model.nobisiesto = "";
+            Model.resultado = "";
+
+            for (int i = Model.inicio; i <= Model.termino; i++)
+            {
+                Model.todo += i + ", ";
+
+                if (i % 400 == 0)
+                {
+                    Model.bisiesto = Model.bisiesto + i + "\n";
+                }
+                else if (i % 400 == 0 && i % 100 != 0)
+                {
+                    Model.bisiesto = i + "\n";
+                }
+                else
+                {
+                    Model.nobisiesto += i + "\n";
+                }
+            }
+
+            //capturar informacion de radiobutton 1
+            if (Request["Anio"] == "Bisiestos")
+            {
+                Model.resultado = Model.bisiesto;
+            }
+            //capturar informacion de radiobutton 2
+            if (Request["Anio"] == "No Bisiestos")
+            {
+                Model.resultado = Model.nobisiesto;
+            }
+            //capturar informacion de radiobutton 3
+            if (Request["Anio"] == "Ambos")
+            {
+                Model.resultado = Model.todo;
+            }
+        }
+        <h2><strong>@Request["Anio"]</strong></h2>
+
+        <div>
+            <strong> @Model.resultado </strong>
+        </div>
+
+        <br />
+
+        <a href="javascript:history.back()"><< Regresar al formulario</a>
+
+    </div>
+</body>
+</html>
